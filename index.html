@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect with IAM MAFAH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo:wght@300;400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --neon-cyan: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-blue: #0066ff;
+            --neon-green: #00ff88;
+            --neon-pink: #ff00c8;
+            --neon-yellow: #ffdd00;
+            --neon-orange: #ff7700;
+            --glass-bg: rgba(15, 15, 25, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-light: rgba(255, 255, 255, 0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* 3D Background Container */
+        #background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 1.5rem;
+            background: rgba(10, 10, 15, 0.95);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.5);
+            letter-spacing: 1px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1.5rem;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            z-index: 10;
+        }
+        
+        /* Title Container */
+        .title-container {
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .main-title {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: 3px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            animation: titleAnimation 4s ease-in-out infinite;
+        }
+        
+        .title-part {
+            display: inline-block;
+        }
+        
+        .iammafah {
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.8),
+                         0 0 40px rgba(185, 103, 255, 0.6),
+                         0 0 60px rgba(0, 102, 255, 0.4);
+        }
+        
+        .by {
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0 0.5rem;
+            text-shadow: 0 0 15px rgba(185, 103, 255, 0.6),
+                         0 0 30px rgba(0, 102, 255, 0.4);
+}
+        
+        .abdullah {
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 102, 255, 0.8),
+                         0 0 40px rgba(185, 103, 255, 0.6),
+                         0 0 60px rgba(0, 243, 255, 0.4);
+}
+        
+        @keyframes titleAnimation {
+            0%, 100% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% {
+                transform: scale(1.02);
+                filter: brightness(1.2);
+            }
+        }
+        
+        .hero-subtitle {
+            font-family: 'Exo', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Social Media Boxes */
+        .social-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 500px;
+            width: 100%;
+            margin: 2rem auto;
+        }
+        
+        .social-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .social-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s;
+        }
+        
+        .social-box:hover::before {
+            left: 100%;
+        }
+        
+        .social-box:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: rgba(185, 103, 255, 0.6);
+            box-shadow: 0 15px 30px rgba(0, 243, 255, 0.2), 
+                        0 0 30px rgba(185, 103, 255, 0.3);
+        }
+        
+        .social-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        
+        .social-box:hover .social-icon {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px currentColor);
+            animation: iconHover 0.5s ease-in-out;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @keyframes iconHover {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1.2);
+            }
+        }
+        
+        .social-caption {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Platform-specific colors */
+        .instagram {
+            color: #E1306C;
+        }
+        
+        .youtube {
+            color: #FF0000;
+        }
+        
+        .linkedin {
+            color: #0077B5;
+        }
+        
+        .twitter {
+            color: #1DA1F2;
+        }
+        
+        .tiktok {
+            color: #00f2ea;
+        }
+        
+        .spotify {
+            color: #1DB954;
+        }
+        
+        /* Testimonial Section */
+        .testimonial-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .testimonial-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            animation: testimonialGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes testimonialGlow {
+            0% {
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4),
+                            0 0 20px rgba(0, 243, 255, 0.2);
+            }
+            100% {
+                box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5),
+                            0 0 30px rgba(185, 103, 255, 0.4),
+                            0 0 40px rgba(0, 243, 255, 0.3);
+            }
+        }
+        
+        .testimonial-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(0, 243, 255, 0.05), transparent);
+            z-index: -1;
+        }
+        
+        .testimonial-text {
+            font-family: 'Exo', sans-serif;
+            font-size: 1.3rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+        
+        .testimonial-author {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer p {
+            font-family: 'Exo', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.3);
+        }
+        
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            min-width: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .stat-item:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            animation: countUp 2s ease-out;
+        }
+        
+        .stat-label {
+            font-family: 'Exo', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            .main-title {
+                letter-spacing: 2px;
+                font-size: clamp(2.5rem, 12vw, 4rem);
+            }
+            
+            .title-container {
+                padding: 1rem;
+            }
+            
+            .testimonial-text {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                letter-spacing: 1px;
+                font-size: clamp(2rem, 14vw, 3rem);
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+                letter-spacing: 1px;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                text-rendering: optimizeLegibility;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .social-container {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+                gap: 1rem;
+            }
+            
+            .social-box {
+                padding: 1.5rem 1rem;
+            }
+            
+            .stats-container {
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .stat-item {
+                min-width: 140px;
+                padding: 1rem 1.5rem;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .testimonial-box {
+                padding: 1.5rem;
+            }
+            
+            .testimonial-text {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .social-container {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .social-container {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 900px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Background Container -->
+    <div id="background-container"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">Thanks for Visiting ❤️</div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <!-- Title Container -->
+            <div class="title-container">
+                <h1 class="main-title">
+                    <span class="title-part iammafah">iammafah</span>
+                    <span class="title-part by">by</span>
+                    <span class="title-part abdullah">ABDULLAH</span>
+                </h1>
+            </div>
+            
+            <p class="hero-subtitle">Join the 'IAMMAFAH' community. Connect across platforms and be part of the future.</p>
+            
+            <!-- Social Media Boxes -->
+            <div class="social-container">
+                <!-- Instagram -->
+                <div class="social-box instagram" data-url="https://www.instagram.com/iammafah/">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </div>
+                    <p class="social-caption">Follow on Instagram</p>
+                </div>
+                
+                <!-- YouTube -->
+                <div class="social-box youtube" data-url="https://www.youtube.com/@iammafah/featured">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                    </div>
+                    <p class="social-caption">Subscribe on YouTube</p>
+                </div>
+                
+                <!-- LinkedIn -->
+                <div class="social-box linkedin" data-url="https://www.linkedin.com/in/iammafah">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </div>
+                    <p class="social-caption">Connect on LinkedIn</p>
+                </div>
+                
+                <!-- Twitter -->
+                <div class="social-box twitter" data-url="https://x.com/iammafah">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </div>
+                    <p class="social-caption">Follow on Twitter</p>
+                </div>
+            </div>
+            
+            <!-- Stats Section -->
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-value" id="followerCount">40K</div>
+                    <div class="stat-label">Followers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="likesCount">4.5M</div>
+                    <div class="stat-label">Likes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="experienceCount">2+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonial Section -->
+    <section class="testimonial-container">
+        <div class="testimonial-box">
+            <p class="testimonial-text">"Blending creativity with technology, I inspire growth and build trust through AI, ML, robotics, and the metaverse — exploring the future of tech while empowering people to dream bigger."</p>
+            <p class="testimonial-author">-- ABDULLAH (iammafah) --</p>
+        </div>
+    </section>
+
+    <section class="testimonial-container">
+        <div class="testimonial-box">
+            <p class="testimonial-text">"Robotics will shape our physical world, while the Metaverse will expand our digital one — together creating the future of human experience."</p>
+            <p class="testimonial-author">-- ABDULLAH (iammafah) --</p>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 iammafah | by ABDULLAH</p>
+    </footer>
+    
+    <script>
+        // Enhanced 3D Blockchain Animation with Real-time Intelligence
+        let scene, camera, renderer;
+        let blockchainNodes = [];
+        let blockchainConnections = [];
+        let dataParticles = [];
+        let clock = new THREE.Clock();
+        let followerCount = 40000;
+        let likesCount = 4500000; // Increased initial likes count
+        let experienceCount = 2;
+        
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x0a0a0a, 0.02);
+            
+            // Create camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 40;
+            
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x0a0a0a, 1);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.getElementById('background-container').appendChild(renderer.domElement);
+            
+            // Create blockchain nodes
+            createBlockchainNodes();
+            
+            // Create connections between nodes
+            createConnections();
+            
+            // Add ambient light
+            const ambientLight = new THREE.AmbientLight(0x222222);
+            scene.add(ambientLight);
+            
+            // Add directional lights
+            const directionalLight1 = new THREE.DirectionalLight(0x00f3ff, 0.8);
+            directionalLight1.position.set(5, 5, 5);
+            directionalLight1.castShadow = true;
+            scene.add(directionalLight1);
+            
+            const directionalLight2 = new THREE.DirectionalLight(0xb967ff, 0.5);
+            directionalLight2.position.set(-5, -5, 5);
+            scene.add(directionalLight2);
+            
+            // Add point lights for glowing effects
+            const pointLight1 = new THREE.PointLight(0x00f3ff, 0.5, 50);
+            pointLight1.position.set(10, 10, 10);
+            scene.add(pointLight1);
+            
+            const pointLight2 = new THREE.PointLight(0xb967ff, 0.5, 50);
+            pointLight2.position.set(-10, -10, 10);
+            scene.add(pointLight2);
+            
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize);
+            
+            // Start animation
+            animate();
+            
+            // Initialize stats
+            updateStats();
+        }
+        
+        function createBlockchainNodes() {
+            const nodeGeometry = new THREE.SphereGeometry(0.8, 16, 16);
+            const blockGeometry = new THREE.BoxGeometry(1.2, 1.2, 1.2);
+            
+            // Create nodes in a blockchain-like structure
+            for (let i = 0; i < 80; i++) {
+                // Alternate between spheres and cubes for variety
+                const useCube = i % 3 === 0;
+                const geometry = useCube ? blockGeometry : nodeGeometry;
+                
+                // Create a material with neon colors
+                const hue = Math.random() * 0.3 + 0.5; // Blue to purple range
+                const material = new THREE.MeshPhongMaterial({
+                    color: new THREE.Color().setHSL(hue, 0.9, 0.6),
+                    emissive: new THREE.Color().setHSL(hue, 0.8, 0.2),
+                    shininess: 100,
+                    transparent: true,
+                    opacity: 0.9
+                });
+                
+                const node = new THREE.Mesh(geometry, material);
+                node.castShadow = true;
+                
+                // Position nodes in a blockchain-like spiral
+                const radius = 12 + Math.random() * 8;
+                const angle = (i / 80) * Math.PI * 12;
+                const height = (i - 40) * 0.7;
+                
+                node.position.x = radius * Math.cos(angle);
+                node.position.y = height;
+                node.position.z = radius * Math.sin(angle);
+                
+                // Add animation properties
+                node.userData = {
+                    originalX: node.position.x,
+                    originalY: node.position.y,
+                    originalZ: node.position.z,
+                    speed: 0.3 + Math.random() * 0.7,
+                    angle: Math.random() * Math.PI * 2,
+                    pulseSpeed: 0.5 + Math.random() * 1,
+                    rotationSpeed: (Math.random() - 0.5) * 0.02,
+                    isBlock: useCube
+                };
+                
+                scene.add(node);
+                blockchainNodes.push(node);
+            }
+        }
+        
+        function createConnections() {
+            // Create connections between nearby nodes
+            for (let i = 0; i < blockchainNodes.length; i++) {
+                for (let j = i + 1; j < blockchainNodes.length; j++) {
+                    const node1 = blockchainNodes[i];
+                    const node2 = blockchainNodes[j];
+                    
+                    const distance = node1.position.distanceTo(node2.position);
+                    
+                    // Only connect nodes that are close enough
+                    if (distance < 10) {
+                        const connectionGeometry = new THREE.BufferGeometry();
+                        const vertices = new Float32Array([
+                            node1.position.x, node1.position.y, node1.position.z,
+                            node2.position.x, node2.position.y, node2.position.z
+                        ]);
+                        
+                        connectionGeometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+                        
+                        const hue = Math.random() * 0.2 + 0.5;
+                        const connectionMaterial = new THREE.LineBasicMaterial({
+                            color: new THREE.Color().setHSL(hue, 0.8, 0.6),
+                            transparent: true,
+                            opacity: 0.2,
+                            linewidth: 2
+                        });
+                        
+                        const connection = new THREE.Line(connectionGeometry, connectionMaterial);
+                        scene.add(connection);
+                        blockchainConnections.push({
+                            line: connection,
+                            node1: node1,
+                            node2: node2,
+                            pulseOffset: Math.random() * Math.PI * 2
+                        });
+                    }
+                }
+            }
+        }
+        
+        function createDataParticle() {
+            const particleGeometry = new THREE.SphereGeometry(0.2, 8, 8);
+            const particleMaterial = new THREE.MeshBasicMaterial({
+                color: new THREE.Color().setHSL(Math.random() * 0.3 + 0.5, 0.9, 0.7),
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const particle = new THREE.Mesh(particleGeometry, particleMaterial);
+            
+            // Start from a random node
+            const startNode = blockchainNodes[Math.floor(Math.random() * blockchainNodes.length)];
+            particle.position.copy(startNode.position);
+            
+            // Find a target node (different from start)
+            let targetNode;
+            do {
+                targetNode = blockchainNodes[Math.floor(Math.random() * blockchainNodes.length)];
+            } while (targetNode === startNode);
+            
+            particle.userData = {
+                startPosition: startNode.position.clone(),
+                targetPosition: targetNode.position.clone(),
+                progress: 0,
+                speed: 0.005 + Math.random() * 0.01,
+                life: 0
+            };
+            
+            scene.add(particle);
+            dataParticles.push(particle);
+            
+            // Update likes count more frequently and with larger increments
+            if (Math.random() < 0.3) {
+                likesCount += Math.floor(Math.random() * 1000);
+                document.getElementById('likesCount').textContent = formatNumber(likesCount);
+            }
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
+            
+            // Animate nodes
+            blockchainNodes.forEach((node, index) => {
+                // Pulsating effect
+                const scale = 0.8 + Math.sin(time * node.userData.pulseSpeed + node.userData.angle) * 0.3;
+                node.scale.set(scale, scale, scale);
+                
+                // Gentle floating motion
+                node.position.y = node.userData.originalY + Math.sin(time * 0.3 + index) * 0.8;
+                
+                // Rotate around center
+                const angle = time * 0.05 + (index / blockchainNodes.length) * Math.PI * 2;
+                node.position.x = node.userData.originalX * Math.cos(angle) - node.userData.originalZ * Math.sin(angle);
+                node.position.z = node.userData.originalX * Math.sin(angle) + node.userData.originalZ * Math.cos(angle);
+                
+                // Rotate blocks
+                if (node.userData.isBlock) {
+                    node.rotation.x += node.userData.rotationSpeed;
+                    node.rotation.y += node.userData.rotationSpeed * 1.3;
+                }
+            });
+            
+            // Animate connections
+            blockchainConnections.forEach(connection => {
+                // Update connection positions
+                const positions = connection.line.geometry.attributes.position.array;
+                positions[0] = connection.node1.position.x;
+                positions[1] = connection.node1.position.y;
+                positions[2] = connection.node1.position.z;
+                positions[3] = connection.node2.position.x;
+                positions[4] = connection.node2.position.y;
+                positions[5] = connection.node2.position.z;
+                
+                connection.line.geometry.attributes.position.needsUpdate = true;
+                
+                // Pulsating opacity
+                connection.line.material.opacity = 0.1 + Math.sin(time * 2 + connection.pulseOffset) * 0.15;
+            });
+            
+            // Animate data particles
+            for (let i = dataParticles.length - 1; i >= 0; i--) {
+                const particle = dataParticles[i];
+                particle.userData.progress += particle.userData.speed;
+                particle.userData.life += delta;
+                
+                if (particle.userData.progress >= 1 || particle.userData.life > 10) {
+                    // Remove particle
+                    scene.remove(particle);
+                    dataParticles.splice(i, 1);
+                } else {
+                    // Move particle along path
+                    particle.position.lerpVectors(
+                        particle.userData.startPosition,
+                        particle.userData.targetPosition,
+                        particle.userData.progress
+                    );
+                    
+                    // Pulsate
+                    const scale = 0.5 + Math.sin(time * 5) * 0.3;
+                    particle.scale.set(scale, scale, scale);
+                }
+            }
+            
+            // More frequently create new data particles
+            if (Math.random() < 0.1) {
+                createDataParticle();
+            }
+            
+            // More frequently update follower count
+            if (Math.random() < 0.05) {
+                followerCount += Math.floor(Math.random() * 50);
+                document.getElementById('followerCount').textContent = formatNumber(followerCount);
+            }
+            
+            // Rotate camera slowly
+            camera.position.x = 40 * Math.sin(time * 0.1);
+            camera.position.z = 40 * Math.cos(time * 0.1);
+            camera.position.y = 5 * Math.sin(time * 0.05);
+            camera.lookAt(0, 0, 0);
+            
+            renderer.render(scene, camera);
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        function updateStats() {
+            document.getElementById('followerCount').textContent = formatNumber(followerCount);
+            document.getElementById('likesCount').textContent = formatNumber(likesCount);
+            document.getElementById('experienceCount').textContent = experienceCount + "+";
+        }
+        
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+        
+        // Initialize the 3D scene
+        init();
+        
+        // Ripple effect on social boxes
+        document.querySelectorAll('.social-box').forEach(box => {
+            box.addEventListener('click', function(e) {
+                // Create ripple element
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                
+                // Position ripple at click point
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                this.appendChild(ripple);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+                
+                // Open link in new tab after a short delay
+                setTimeout(() => {
+                    window.open(this.getAttribute('data-url'), '_blank');
+                }, 300);
+            });
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for scroll animations
+        document.querySelectorAll('.social-box').forEach(box => {
+            box.style.opacity = '0';
+            box.style.transform = 'translateY(20px)';
+            box.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(box);
+        });
+        
+        document.querySelector('.hero-subtitle').style.opacity = '0';
+        document.querySelector('.hero-subtitle').style.transform = 'translateY(20px)';
+        document.querySelector('.hero-subtitle').style.transition = 'opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s';
+        observer.observe(document.querySelector('.hero-subtitle'));
+        
+        document.querySelectorAll('.stat-item').forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = `opacity 0.6s ease ${0.4 + index * 0.1}s, transform 0.6s ease ${0.4 + index * 0.1}s`;
+            observer.observe(item);
+        });
+        
+        // Animate testimonial box on scroll
+        const testimonialBox = document.querySelector('.testimonial-box');
+        testimonialBox.style.opacity = '0';
+        testimonialBox.style.transform = 'translateY(30px)';
+        testimonialBox.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(testimonialBox);
+    </script>
+</body>
+</html>
